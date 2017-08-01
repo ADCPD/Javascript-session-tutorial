@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Scroll Progress Tutorial 2</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous"/>
+    <style>
+        body, .jombotron {
+            padding: 30px;
+        }
+
+        .content {
+            background: #FFF;
+            padding: 50px;
+            font-size: 19px;
+            line-height: 1.5;
+            min-height: 3000px;
+        }
+
+        body {
+            background: #f6f6f5;
+        }
+
+        .scroll-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #00aaff;
+            opacity: 0.8;
+            transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+
+    </style>
+</head>
+<body>
+<div class="scroll-line"></div>
+<div class="container">
+    <div class="content">
+        The Element Object
+        In the HTML DOM, the Element object represents an HTML element.
+        Element objects can have child nodes of type element nodes, text nodes, or comment nodes.
+        A NodeList object represents a list of nodes, like an HTML element's collection of child nodes.
+        Elements can also have attributes. Attributes are attribute nodes (See next chapter).
+    </div>
+</div>
+<!-- DEBUT du Javascript -->
+<script type="text/javascript">
+    /* TODO:  Declarer les constantes*/
+    const scrollLine = document.querySelector('.scroll-line');
+    const content = document.querySelector('.content');
+
+    /*   Declarer Methodes & Fonctions & EventListener */
+    function fillScrollLine() {
+
+        const windowHeight = window.innerHeight;
+        const fullHeight = document.body.clientHeight;
+        const scroled = window.scrollY;
+        const percentScrolled = (scroled / (fullHeight - windowHeight)) * 100;
+        //console.log(percentScrolled + "%");
+        //console.count("line !");
+
+        scrollLine.style.width = percentScrolled + "%";
+        scrollLine.style.width = '${percentScrolled}%';
+        //console.log(scrollLine.style.width);
+    }
+
+   // window.addEventListener('scroll', fillScrollLine);
+    window.addEventListener('scroll', debounce(
+        fillScrollLine
+    ));
+
+    function debounce(func, wait=15, immediate){
+        var timeout;
+        return function(){
+            var context = this;
+            var args = arguments;
+            var later = function(){
+                timeout = null;
+                if(!immediate) func.apply(context,args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later,wait);
+            if(callNow) func.apply(context,args);
+        }
+    }
+</script>
+</body>
+</html>

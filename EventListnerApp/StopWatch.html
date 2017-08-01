@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>Build an application in Javascript</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous"/>
+
+    <style>
+        body .jumbotron {
+            padding: 30px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .horloge-text {
+            font-size: 100px;
+        }
+    </style>
+</head>
+
+<body class="container text-center">
+<div class="jumbotron">
+    <h1 class="horloge-text minuteur">
+        <span class="minutes">00</span> : <span class="seconds">00</span>
+    </h1>
+    <p class="btn-group">
+        <button class="btn btn-success btn-lg" name="start" data-action="start">Start</button>
+        <button class="btn btn-lg btn-default">&blk14;</button>
+        <button class="btn btn-danger btn-lg" name="stop" data-action="stop">Stop</button>
+    </p>
+    <p>
+        <button class="btn btn-link" type="reset" data-action="reset">Reset</button>
+    </p>
+</div>
+<!-- start application javascript -->
+<script>
+
+    /** TODO: declarer  les attributes */
+    const buttonStart = document.querySelector("[data-action = 'start' ]");
+    const buttonStop = document.querySelector("[data-action = 'stop' ]");
+    const buttonReset = document.querySelector("[data-action = 'reset' ]");
+    const minuteur = document.querySelector(".minuteur");
+    const minutes = document.querySelector(".minutes");
+    const seconds = document.querySelector(".seconds");
+    let timerTime = 00;
+    let interval;
+    let isRanning = false;
+
+    /** TODO: declarer  les  fonctions */
+
+
+    /**
+     * @method: qui declenche le minuteur
+     */
+    function startTimer() {
+        if (isRanning == false) {
+            interval = setInterval(incrementTimer, 1000);
+            isRanning = true;
+        }
+
+    }
+
+    /**
+     * @method : qui stop  le minuteur
+     */
+    function stopTimer() {
+        if (isRanning == true) {
+            clearInterval(interval); // clearInterval() methode js
+            isRanning = false;
+        }
+    }
+
+    /**
+     * @method: qui resert le minuteur
+     */
+    function resetTimer() {
+        stopTimer();
+        timerTime = 00;
+        minutes.innerText = '00';
+        seconds.innerText = '00';
+    }
+
+    /**
+     *  @method : calculer le temps incremanter par le timer
+     * */
+    function incrementTimer() {
+        timerTime++;
+        const numberOfMinutes = Math.floor(timerTime / 60);
+        const numberOfSeconds = Math.floor(timerTime % 60);
+        minutes.innerText = zeroNumber(numberOfMinutes);
+        seconds.innerText = zeroNumber(numberOfSeconds);
+    }
+
+    /** @method: Method qui affiche le nombre de minutes et seconde en format 00:00
+     * Si timer number > 10 il affiche le timer normal sinon il ajoute un 0 devant le number
+     * */
+
+    function zeroNumber(number) {
+        return ( number < 10 ) ? '0' + number : number;
+
+    }
+
+    /** TODO: initialiser the EventListener */
+    buttonStart.addEventListener('click', startTimer);
+    buttonStop.addEventListener('click', stopTimer);
+    buttonReset.addEventListener('click', resetTimer);
+
+
+    //    setInterval(function () {
+    //        timerTime++;
+    //        // console.log('Hello !');  // un message Hello  sera affichée chaque  second
+    //        // console.count('Hello !');  // compter le nombre de message Hello  sera affichée chaque  second
+    //        //console.log(timerTime);
+    //        const numberOfMinutes = Math.floor(timerTime / 60);
+    //        const numberOfSeconds = Math.floor(timerTime % 60);
+    //        //console.log(numberOfMinutes,numberOfSeconds);
+    //        minutes.innerText = zeroNumber(numberOfMinutes);
+    //        seconds.innerText = zeroNumber(numberOfSeconds);
+    //
+    //    }, 1000);
+</script>
+<!-- ./end application javascript -->
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>Build an application in Javascript</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous" />
+
+    <style>
+        body {
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Option 1 : HTML to DOM  -->
+            <button class="btn btn-danger" onclick="elementEventDom()">
+                 Ce bouton change la couleur du body backgroud
+            </button>
+        </div>
+        <div class="row">
+            <!-- Option 2-1 : use event directly to the Javascript  -->
+            <button class="btn btn-default coffee-btn">
+                 Ce bouton change la couleur du body backgroud
+            </button>
+        </div>
+        <div class="row">
+            <!-- Option 2-2 :  select multi-button in the Javascript  -->
+            <button class="btn btn-primary multi-coffee-btn">
+                 Bouton 1
+            </button>
+            <button class="btn btn-primary  multi-coffee-btn">
+                 Bouton 2
+            </button>
+            <button class="btn btn-primary  multi-coffee-btn">
+                 Bouton 3
+            </button>
+            <button class="btn btn-primary  multi-coffee-btn">
+                 Bouton 4
+            </button>
+        </div>
+        <div class="row">
+            <!-- Option 3 :  using addEventListener -->
+            <button class="btn btn-success event-btn">
+                not using  Event 
+            </button>
+        </div>
+    </div>
+
+
+
+
+    <!-- start application javascript -->
+    <script>
+        // recuperer des elements a partir du DOM
+        // attachez les events listner 
+
+
+        // =======================>  OPTION 1  <=======================// 
+        function elementEventDom() {
+            document.body.style.backgroundColor = "#eff2f3";
+        }
+
+        // =======================>  OPTION 2-1  <=======================//
+        const coffeeButton = document.querySelector('.coffee-btn');
+        coffeeButton.onclick = function () {
+            document.body.style.background = "#d7dcdd";
+        }
+        coffeeButton.onmouseenter = elementEventDom;
+
+        // =======================>  OPTION 2-2  <=======================//
+        function getBlueBackGround() {
+            document.body.style.backgroundColor = "#aeb6b8";
+        }
+        // plusieurs bouton execute la meme fonctionnalité. 
+        const coffeeButtons = document.querySelectorAll('.multi-coffee-btn');
+        coffeeButtons.forEach(function (button) {
+            button.onclick = getBlueBackGround;
+        }
+        );
+
+        // =======================>  OPTION 3  <=======================// 
+        const evtButton = document.querySelector('.event-btn');
+        function notListening() {
+            document.body.style.backgroundColor = '#3b4446';
+        }
+        evtButton.addEventListener('click', notListening);
+        evtButton.addEventListener('mouseenter', getBlueBackGround); //hover button
+
+        const buttons = document.querySelectorAll('button');
+        // une fois, on deplace la souris la couleur de Bg sera re itialiser par default 
+        buttons.forEach(button => button.addEventListener('mouseleave', elementEventDom));
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>Build an application in Javascript</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous" />
+
+    <style>
+        body .jumbotron {
+            padding: 30px;
+        }
+
+        .text-griant {
+            font-size: 40px;
+        }
+
+        .btn-crazy {
+            position: absolute;
+            top: 30px;
+            left: 35%;
+            width: 30%;
+            transition: 0.5s ease all;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row text-center">
+            <button class="btn-crazy btn btn-lg btn-danger" type="button">Click me ! </button>
+        </div>
+    </div>
+
+    <script>
+        // definir les consts
+        const crazyButton = document.querySelector('.btn-crazy');
+        // definir les fonctions 
+        function pressCrazyButton() {
+            // generer un randon value pour offset Left and Top in css 
+            const offsetLeft = Math.random() * (window.innerWidth - crazyButton.clientLeft);
+            const offsetTop = Math.random() * (window.innerHeight - crazyButton.clientTop);
+
+            console.log(offsetLeft, offsetTop);
+            // attribuer ses valeurs au bouton à animer 
+            crazyButton.style.top = offsetTop + 'px';
+            crazyButton.style.left = offsetLeft + 'px';
+
+
+        }
+        // definir les eventListners 
+        crazyButton.addEventListener('mouseenter', pressCrazyButton);
+    </script>
+</body>
+
+</html>

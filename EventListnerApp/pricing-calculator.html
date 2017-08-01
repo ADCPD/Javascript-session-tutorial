@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <title>Build an application in Javascript</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous" />
+
+    <style>
+        body {
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body class="container-fluid">
+    <div class="row">
+        <div class="jumbotron">
+            <h2>How match ?</h2>
+            <form>
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="text" class="form-control" name="price" value="30" />
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">
+                        Quantity <span class="label label-primary quantity-label">1</span>
+                    </label>
+                    <!-- 
+                    <input type="number" class="form-control" name="quantity" value="1" />
+                    -->
+                    <input type="range" class="form-control" name="quantity" value="1" min="1" max="10" step="1" />
+
+                </div>
+            </form>
+            <div class="text-right text-giant">
+                <div class="total"></div>
+            </div>
+        </div>
+    </div>
+    <!--START PROGRAM -->
+    <script>
+        // Definir les besoins
+        const priceInput = document.querySelector('[name=price]');
+        const quantityInput = document.querySelector('[name=quantity]');
+        const totalValue = document.querySelector('.total');
+        const quantityLabel = document.querySelector('.quantity-label');
+
+        // Definir les functions 
+        function calculateItemsCost() {
+            const price = parseFloat(priceInput.value);
+            const quantity = parseInt(quantityInput.value);
+            const result = price * quantity;
+
+            totalValue.innerText = result.toFixed(2) + ' euros';
+            console.log(result);
+
+        };
+
+        // value displayed in label .quantity-label
+        function updatetQuantityLabelValue() {
+            const quantity = parseInt(quantityInput.value);
+            quantityLabel.innerText = quantity;
+            console.log('Label quantity : ' + quantity);
+        };
+
+        // affichage du resultat par default
+        calculateItemsCost();
+
+        // Ajouter les listeners
+        priceInput.addEventListener('input', calculateItemsCost);
+        quantityInput.addEventListener('input', calculateItemsCost);
+        quantityInput.addEventListener('input', updatetQuantityLabelValue);
+    </script>
+</body>
+
+</html>
